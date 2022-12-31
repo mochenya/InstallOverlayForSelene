@@ -57,6 +57,7 @@ set_permissions() {
   
   # set_perm $MODPATH/system/lib/libart.so 0 0 0644
   # set_perm /data/local/tmp/file.txt 0 0 644
+  set_perm_recursive "$MODPATH/system/vendor/overlay" 0 0 0755 0644 u:object_r:vendor_overlay_file:s0
 }
 
 ##########################################################################################

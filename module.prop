@@ -1,7 +1,7 @@
-id=MMT-Ex
-name=Magisk Module Template Extended
-version=v2.0
+id=selene_overlay
+name=Install Overlay For Selene
+version=v1.0
 versionCode=10
-author=Zackptg5
-description=Magisk Module Template Extended
-updateJson=https://raw.githubusercontent.com/Zackptg5/MMT-Extended/master/update.json
+author=MoChenYa
+description=为您的Redmi Note11 4G安装适用的overlay，常用于刷入PHH / Treble-Droid GSI后修复本机型特性。
+updateJson=https://raw.githubusercontent.com/mochenya/InstallOverlayForSelene/master/update.json

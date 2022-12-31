@@ -11,9 +11,35 @@ ui_print() { echo "$1"; }
 
 require_new_magisk() {
   ui_print "*******************************"
-  ui_print " Please install Magisk v20.4+! "
+  ui_print " 请安装 Magisk v20.4+! "
   ui_print "*******************************"
   exit 1
+}
+
+check_device() {
+  PRODUCT=$(getprop ro.product.vendor.device)
+  ui_print "*************************************"
+  ui_print "*     Install overlay for selene   "
+  ui_print "*************************************"
+  ui_print "* · 处理器平台: $(getprop ro.board.platform)"
+  ui_print "* · 设备架构：$(getprop ro.product.cpu.abi)"
+  ui_print "* · 设备代号：$PRODUCT"
+  ui_print "* · Android版本：$(getprop ro.build.version.release)"
+  ui_print "* · Android SDK: $(getprop ro.build.version.sdk)"
+  ui_print "* · Vendor SDK: $(getprop ro.vendor.build.version.sdk)"
+  ui_print "* · 内核版本：$(uname -r)"
+  ui_print "* · 基带版本：$(getprop gsm.version.baseband|cut -d "," -f1)"
+  ui_print "* · Magisk版本：$(magisk -c)"
+  ui_print "*************************************"
+  ui_print "- 开始检测你的设备信息..."
+  if [ $PRODUCT = selene ]; then
+    ui_print "  您的设备代号为: $PRODUCT,符合要求！"
+  elif [ $PRODUCT = selenes ]; then
+    ui_print "  您的设备代号为: $PRODUCT,符合要求！"
+  else
+    ui_print "  您的设备代号为: $PRODUCT,但这个模块适用于selene / selenes."
+    exit 1
+  fi
 }
 
 #########################
@@ -24,6 +50,8 @@ OUTFD=$2
 ZIPFILE=$3
 
 mount /data 2>/dev/null
+
+check_device
 
 [ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
 . /data/adb/magisk/util_functions.sh

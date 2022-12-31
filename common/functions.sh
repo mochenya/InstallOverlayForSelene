@@ -105,12 +105,6 @@ prop_process() {
   done < $1
 }
 
-# Credits
-ui_print "**************************************"
-ui_print "*   MMT Extended by Zackptg5 @ XDA   *"
-ui_print "**************************************"
-ui_print " "
-
 # Check for min/max api version
 [ -z $MINAPI ] || { [ $API -lt $MINAPI ] && abort "! Your system API of $API is less than the minimum api of $MINAPI! Aborting!"; }
 [ -z $MAXAPI ] || { [ $API -gt $MAXAPI ] && abort "! Your system API of $API is greater than the maximum api of $MAXAPI! Aborting!"; }
@@ -149,21 +143,21 @@ if $DEBUG; then
 fi
 
 # Extract files
-ui_print "- Extracting module files"
+ui_print "- 提取模块文件中..."
 unzip -o "$ZIPFILE" -x 'META-INF/*' 'common/functions.sh' -d $MODPATH >&2
 [ -f "$MODPATH/common/addon.tar.xz" ] && tar -xf $MODPATH/common/addon.tar.xz -C $MODPATH/common 2>/dev/null
 
 # Run addons
 if [ "$(ls -A $MODPATH/common/addon/*/install.sh 2>/dev/null)" ]; then
-  ui_print " "; ui_print "- Running Addons -"
+  ui_print " "; ui_print "- 运行插件... -"
   for i in $MODPATH/common/addon/*/install.sh; do
-    ui_print "  Running $(echo $i | sed -r "s|$MODPATH/common/addon/(.*)/install.sh|\1|")..."
+    ui_print "  运行 $(echo $i | sed -r "s|$MODPATH/common/addon/(.*)/install.sh|\1|")中..."
     . $i
   done
 fi
 
 # Remove files outside of module directory
-ui_print "- Removing old files"
+ui_print "- 删除旧文件..."
 
 if [ -f $INFO ]; then
   while read LINE; do
@@ -183,11 +177,10 @@ if [ -f $INFO ]; then
 fi
 
 ### Install
-ui_print "- Installing"
+ui_print "- 安装中..."
 
 [ -f "$MODPATH/common/install.sh" ] && . $MODPATH/common/install.sh
 
-ui_print "   Installing for $ARCH SDK $API device..."
 # Remove comments from files and place them, add blank line to end if not already present
 for i in $(find $MODPATH -type f -name "*.sh" -o -name "*.prop" -o -name "*.rule"); do
   [ -f $i ] && { sed -i -e "/^#/d" -e "/^ *$/d" $i; [ "$(tail -1 $i)" ] && echo "" >> $i; } || continue
@@ -220,8 +213,7 @@ if $DYNLIB; then
 fi
 
 # Set permissions
-ui_print " "
-ui_print "- Setting Permissions"
+ui_print "- 设置权限中..."
 set_perm_recursive $MODPATH 0 0 0755 0644
 if [ -d $MODPATH/system/vendor ]; then
   set_perm_recursive $MODPATH/system/vendor 0 0 0755 0644 u:object_r:vendor_file:s0
@@ -234,5 +226,12 @@ if [ -d $MODPATH/system/vendor ]; then
 fi
 set_permissions
 
+ui_print " "
+ui_print "- 🌺 本模块基于 MMT-Extended"
+ui_print "- 🌲 MMT-Extended: https://github.com/Zackptg5/MMT-Extended"
+ui_print "- 🌻 Install Overlay For Selene: https://github.com/mochenya/InstallOverlayForSelene"
+ui_print "- 🌾 模块作者: MoChenYa | http://www.coolapk.com/u/12374510"
+ui_print "- 🍀 Overlay作者: MoChenYa"
+ui_print "- GPL-2.0 license"
 # Complete install
 cleanup

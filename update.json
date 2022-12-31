@@ -1,6 +1,6 @@
 {
-  "version": "v2.0",
+  "version": "v1.0",
   "versionCode": 10,
-  "zipUrl": "https://raw.githubusercontent.com/Zackptg5/MMT-Extended/install.zip",
-  "changelog": "https://raw.githubusercontent.com/Zackptg5/MMT-Extended/changelog.md"
+  "zipUrl": "https://github.com/mochenya/InstallOverlayForSelene/releases/download/v1.0/Install.Overlay.For.Selene_v1.0.zip",
+  "changelog": "https://raw.githubusercontent.com/mochenya/InstallOverlayForSelene/master/changelog.md"
 }
